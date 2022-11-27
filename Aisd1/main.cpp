@@ -128,7 +128,6 @@ double zero_checker()
     double data = (double)atof(n_data);
     return data;
 }
-//int
 bool int_control(char* xn)
 {
     char* tmp = xn;
@@ -184,16 +183,13 @@ int int_checker()
     int data = (int)atoi(n_data);
     return data;
 }
-
-//Matrix operator * (double h, Matrix matrix);
 Matrix operator / (double h, Matrix matrix);
 std::ostream& operator << (std::ostream& s, const Matrix& matrix);
 
 
 int main()
 {
-
-    Matrix A(3, 3), B(3, 3), C(3, 1), D(2, 2);
+    Matrix A(3, 3), B(3, 3), C(3, 1);
     A(0, 0) = 3;
     A(0, 1) = 2;
     A(0, 2) = 3;
@@ -300,7 +296,6 @@ int main()
             catch (const char* message) {
                 std::cout << message;
             }
-
             if (check) {
                 C = A * B;
                 std::cout << "A * B:\n\n" << endl;
@@ -327,7 +322,6 @@ int main()
             std::cout << "\tDividing a matrix by a scalar.\n\n";
             double a;
             std::cout << "Enter a value (scalar): ";
-            //a = zero_checker();
             std::cin >> a;
             std::cout << "A \ a:\n\n" << endl;
             std::cout << A << "\n /\n\n " << a << "\n\n = \n\n";
@@ -385,16 +379,13 @@ int main()
             system("cls");
             std::cout << "Solution_of_the_equation A*x = B" << endl;
             std::cout << A.Solution_of_the_equation(C);
-
         }
-
         }
         while (true)
         {
             int m2 = menu2();
             if (m2 == 13) break;
         }
-
     }
     return 0;
 }
