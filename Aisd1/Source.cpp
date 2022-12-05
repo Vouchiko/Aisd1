@@ -91,10 +91,20 @@ Matrix Matrix::operator * (const Matrix& rhs) {
 }
 
 Matrix Matrix::operator / (const double h) {
+
     Matrix result(rows, columns);
-    for (int i = 0; i < rows; i++)
-        for (int j = 0; j < columns; j++)
-            result.matrix[i][j] = matrix[i][j] / h;
+    if (h == 0)
+    {
+        std::cout << "invalid syntax, division by zero is not possible";
+    }
+    else {
+
+
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
+
+                result.matrix[i][j] = matrix[i][j] / h;
+    }
     return result;
 }
 void Matrix::EnterMatrix() {
