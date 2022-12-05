@@ -25,7 +25,7 @@ int menu1()
         "9 - Access to an element in matrix A by index\n\n"
         "0 - Solution_of_the_equation A*x = B\n\n"
         "Exit: Esc";
-
+     
 
     while (true)
     {
@@ -190,7 +190,7 @@ std::ostream& operator << (std::ostream& s, const Matrix& matrix);
 int main()
 {
     Matrix A(3, 3), B(3, 3), b(3, 1), D(3, 3);
-    //Матрица A
+    //Matrix A
     A(0, 0) = 3;
     A(0, 1) = 2;
     A(0, 2) = 3;
@@ -200,7 +200,7 @@ int main()
     A(2, 0) = 1;
     A(2, 1) = 2;
     A(2, 2) = 3;
-    //Матрица B
+    //Matrix B
     B(0, 0) = 3;
     B(0, 1) = 2;
     B(0, 2) = 3;
@@ -210,7 +210,7 @@ int main()
     B(2, 0) = 1;
     B(2, 1) = 6;
     B(2, 2) = 3;
-    // Вектор b
+    // Vector b
     b(0, 0) = 1;
     b(1, 0) = 2;
     b(2, 0) = 3;
