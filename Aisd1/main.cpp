@@ -189,7 +189,8 @@ std::ostream& operator << (std::ostream& s, const Matrix& matrix);
 
 int main()
 {
-    Matrix A(3, 3), B(3, 3), C(3, 1);
+    Matrix A(3, 3), B(3, 3), b(3, 1), D(3, 3);
+    //Матрица A
     A(0, 0) = 3;
     A(0, 1) = 2;
     A(0, 2) = 3;
@@ -199,7 +200,7 @@ int main()
     A(2, 0) = 1;
     A(2, 1) = 2;
     A(2, 2) = 3;
-
+    //Матрица B
     B(0, 0) = 3;
     B(0, 1) = 2;
     B(0, 2) = 3;
@@ -207,18 +208,21 @@ int main()
     B(1, 1) = 2;
     B(1, 2) = 4;
     B(2, 0) = 1;
-    B(2, 1) = 2;
+    B(2, 1) = 6;
     B(2, 2) = 3;
-
-    C(0, 0) = 1;
-    C(1, 0) = 2;
-    C(2, 0) = 3;
-    while (true) {
+    // Вектор b
+    b(0, 0) = 1;
+    b(1, 0) = 2;
+    b(2, 0) = 3;
+    while (true)
+    {
         system("cls");
         int m1 = menu1();
-        switch (m1) {
+        switch (m1)
+        {
         case 27: return 0;
-        case '1': {
+        case '1':
+        {
             system("cls");
             std::cout << "\tInvestigated matrices:\n\n";
             std::cout << "A:\n" << A << endl;
@@ -228,14 +232,19 @@ int main()
             int m3 = menu3();
             switch (m3) {
             case '1': {
-                system("cls");
-                std::cout << "\n--------Setting the matrix A--------" << endl;
-                A.EnterMatrix();
+                try {
+                    system("cls");
+                    std::cout << "\n--------Setting the matrix A--------" << endl;
+                    A.EnterMatrix();
 
-                std::cout << "\n--------Setting the matrix B--------" << endl;
-                B.EnterMatrix();
+                    std::cout << "\n--------Setting the matrix B--------" << endl;
+                    B.EnterMatrix();
 
-                break;
+                    break;
+                }
+                catch (const char* message) {
+                    std::cout << message;
+                }
             }
             case 50: {
                 break;
@@ -244,12 +253,13 @@ int main()
 
             break;
         }
-        case 50: {
+        case '2':
+        {
             system("cls");
             std::cout << "\tMatrix Addition.\n\n";
             bool check = 0;
             try {
-                C = A + B;
+                D = A + B;
                 check = 1;
             }
             catch (const char* message) {
@@ -264,12 +274,13 @@ int main()
 
             break;
         }
-        case 51: {
+        case '3':
+        {
             system("cls");
             std::cout << "\tMatrix difference.\n\n";
             bool check = 0;
             try {
-                C = A - B;
+                D = A - B;
                 check = 1;
             }
             catch (const char* message) {
@@ -277,35 +288,37 @@ int main()
             }
 
             if (check) {
-                C = A - B;
+                D = A - B;
                 std::cout << "A - B:\n\n" << endl;
                 std::cout << A << "\n -\n\n" << B << "\n = \n\n";
-                std::cout << C;
+                std::cout << D;
             }
 
             break;
         }
-        case 52: {
+        case '4':
+        {
             system("cls");
             std::cout << "\tmultiplication matrix.\n\n";
             bool check = 0;
             try {
-                C = A * B;
+                D = A * B;
                 check = 1;
             }
             catch (const char* message) {
                 std::cout << message;
             }
             if (check) {
-                C = A * B;
+                D = A * B;
                 std::cout << "A * B:\n\n" << endl;
                 std::cout << A << "\n *\n\n" << B << "\n = \n\n";
-                std::cout << C;
+                std::cout << D;
             }
 
             break;
         }
-        case 53: {
+        case '5':
+        {
             system("cls");
             std::cout << "\tMultiplying a matrix by a scalar.\n\n";
             double a;
@@ -313,11 +326,12 @@ int main()
             std::cin >> a;
             std::cout << "A * a:\n\n" << endl;
             std::cout << A << "\n *\n\n " << a << "\n\n = \n\n";
-            C = A * a;
-            std::cout << C;
+            D = A * a;
+            std::cout << D;
             break;
         }
-        case 54: {
+        case '6':
+        {
             system("cls");
             std::cout << "\tDividing a matrix by a scalar.\n\n";
             double a;
@@ -325,19 +339,39 @@ int main()
             std::cin >> a;
             std::cout << "A \ a:\n\n" << endl;
             std::cout << A << "\n /\n\n " << a << "\n\n = \n\n";
-            C = A / a;
-            std::cout << C;
-
+            if (a == 0)
+                std::cout << "invalid syntax, division by zero is not possible" << endl;
+            else
+            {
+                D = A / a;
+                std::cout << D;
+            }
             break;
         }
-        case 55: {
+        case '7':
+        {
             system("cls");
             std::cout << "\tCalculating the trace of the matrix.\n\n";
             std::cout << "Tr(A) = " << A.tr();
             break;
         }
+        case '8':
+        {
+            system("cls");
+            std::cout << "Matrix Comparison.\n Enter epsilon: " << endl;
+            std::cin >> A.epsilon;
+            if (A == B)
+            {
+                std::cout << "A == B\n";
+            }
+            else
+            {
+                std::cout << "A!=B\n";
+            }
+            break;
+        }
 
-        case 57:
+        case '9':
         {
             system("cls");
             std::cout << "Access to an element in matrix A by index." << endl;
@@ -360,25 +394,14 @@ int main()
             }
                    break;
             }
+            break;
         }
-        case 56:
-        {
-            system("cls");
-            std::cout << "Matrix Comparison.\n Enter epsilon: " << endl;
-            std::cin >> A.epsilon;
-            if (A == B)
-            {
-                std::cout << "A == B\n";
-            }
-            else
-            {
-                std::cout << "A!=B\n";
-            }
 
-        }case'0': {
+        case'0': {
             system("cls");
             std::cout << "Solution_of_the_equation A*x = B" << endl;
-            std::cout << A.Solution_of_the_equation(C);
+            std::cout << "X = " << endl;
+            std::cout << A.Solution_of_the_equation(b);
         }
         }
         while (true)
