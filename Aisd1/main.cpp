@@ -373,26 +373,34 @@ int main()
 
         case '9':
         {
-            system("cls");
-            std::cout << "Access to an element in matrix A by index." << endl;
-            std::cout << "enter the row: ";
-            int x = int_checker();
-            std::cout << "\nenter the column: ";
-            int y = int_checker();
-            std::cout << "\nthe value of the element: " << A(x, y);
-            std::cout << "\nDo you want to change ellement?\n";
-            int m3 = menu3();
-            switch (m3) {
-            case 49: {
+            try {
                 system("cls");
-                cout << "Enter the value: ";
-                A(x, y) = double_checker();
-                break;
+                std::cout << "Access to an element in matrix A by index." << endl;
+                std::cout << "enter the row: ";
+                int x = int_checker();
+                std::cout << "\nenter the column: ";
+                int y = int_checker();
+                std::cout << "\nthe value of the element: " << A(x, y);
+                std::cout << "\nDo you want to change ellement?\n";
+            
+
+                int m3 = menu3();
+                switch (m3) {
+                case 49: {
+                    system("cls");
+                    cout << "Enter the value: ";
+                    A(x, y) = double_checker();
+                    break;
+                }
+                case 50: {
+                    break;
+                }
+                       break;
+                }
+                
             }
-            case 50: {
-                break;
-            }
-                   break;
+            catch (const char* message) {
+                std::cout << message;
             }
             break;
         }
@@ -401,7 +409,7 @@ int main()
             system("cls");
             std::cout << "Solution_of_the_equation A*x = B" << endl;
             std::cout << "X = " << endl;
-            std::cout << A.Solution_of_the_equation(b);
+            std::cout << A.Solution_of_the_equation(B);
         }
         }
         while (true)

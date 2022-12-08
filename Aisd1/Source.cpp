@@ -135,8 +135,6 @@ void Matrix::EnterMatrix() {
         for (int j = 0; j < columns; j++)
             matrix[i][j] = newMatrix.matrix[i][j];
 }
-
-
 Matrix Matrix::operator * (const double h) {
     Matrix result(rows, columns);
     for (int i = 0; i < rows; i++)
@@ -182,7 +180,7 @@ ostream& operator<< (ostream& s, const Matrix& matrix) {
     return s;
 }
 
-Matrix Matrix::Solution_of_the_equation(const Matrix& vector) {
+Matrix Matrix::Solution_of_the_equation(const Matrix& Mat) {
     double det = matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[2][1] * matrix[1][2]) -
         matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
         matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
@@ -200,6 +198,6 @@ Matrix Matrix::Solution_of_the_equation(const Matrix& vector) {
     matrix2(2, 1) = (matrix[2][0] * matrix[0][1] - matrix[0][0] * matrix[2][1]) * invdet;
     matrix2(2, 2) = (matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]) * invdet;
 
-    matrixResult = matrix2 * vector;
+    matrixResult = matrix2 * Mat;
     return matrixResult;
 }
