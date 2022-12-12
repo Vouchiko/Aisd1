@@ -35,15 +35,11 @@ int Matrix::GetRows() const {
 int Matrix::GetCols() const {
     return columns;
 }
-double Matrix::tr()
-{
+double Matrix::tr() {
     double result = 0;
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns; j++)
-        {
-            if (i == j)
-            {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (i == j) {
                 result += matrix[i][j];
             }
         }
@@ -91,18 +87,13 @@ Matrix Matrix::operator * (const Matrix& rhs) {
 }
 
 Matrix Matrix::operator / (const double h) {
-
     Matrix result(rows, columns);
-    if (h == 0)
-    {
+    if (h == 0) {
         std::cout << "invalid syntax, division by zero is not possible";
     }
     else {
-
-
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
-
                 result.matrix[i][j] = matrix[i][j] / h;
     }
     return result;
@@ -142,14 +133,19 @@ Matrix Matrix::operator * (const double h) {
             result.matrix[i][j] = matrix[i][j] * h;
     return result;
 }
+
+Matrix operator * (double h, Matrix matrix) {
+    Matrix result(matrix.GetRows(), matrix.GetCols());
+    result = matrix * h;
+    return result;
+}
+
 Matrix operator / (double h, Matrix matrix) {
     Matrix result(matrix.GetRows(), matrix.GetCols());
-    if (h == 0)
-    {
+    if (h == 0) {
         std::cout << "invalid syntax, division by zero is not possible";
     }
-    else
-    {
+    else {
         result = matrix / h;
         return result;
     }
@@ -159,13 +155,11 @@ bool Matrix::operator == (const Matrix& rhs) {
     if ((rows == rhs.rows) && (columns == rhs.columns)) {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
-                if (abs(matrix[i][j] - rhs.matrix[i][j]) > epsilon)
-                {
+                if (abs(matrix[i][j] - rhs.matrix[i][j]) > epsilon) {
                     result = false;
                 }
     }
-    else
-    {
+    else {
         result = false;
     }
     return result;

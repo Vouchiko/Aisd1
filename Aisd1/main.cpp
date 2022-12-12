@@ -3,16 +3,14 @@
 #include <iostream>
 #include "matrix.h"
 
-int get_key()
-{
+int get_key(){
     int key = _getch();
     if ((key == 0) || (key == 224))
         key = _getch();
     return key;
 }
 
-int menu1()
-{
+int menu1(){
     std::cout << "\nMatrix Class.\n\n"
         "1 - View/edit the studied matrices.\n"
         "2 - Matrix Addition(+)\n"
@@ -27,30 +25,25 @@ int menu1()
         "Exit: Esc";
      
 
-    while (true)
-    {
+    while (true){
         int key = get_key();
         if ((key == 27) || (key >= '0' && key <= '9'))
             return key;
     }
 }
 
-int menu2()
-{
+int menu2(){
     std::cout << "\n\n";
     std::cout << "Resume: Enter";
-    while (true)
-    {
+    while (true){
         int key = get_key();
         if (key == 13) return key;
     }
 }
 
-int menu3()
-{
+int menu3(){
     std::cout << "1 - Yes\n2 - No";
-    while (true)
-    {
+    while (true){
         int key = get_key();
         if (key == '1' || key == '2') return key;
     }
@@ -62,8 +55,7 @@ bool double_control(char* xn)
     int zap_p = 0;
     const char mask[] = ".-1234567890";
     int checker = 0;
-    while (*tmp)
-    {
+    while (*tmp){
         if (strchr(mask, *tmp)) checker++;
         tmp++;
     }
@@ -73,38 +65,29 @@ bool double_control(char* xn)
         return false;
 
     if (*xn == '-' && *(xn + 1) == '\0')
-    {
         return false;
-    }
     if ((*xn == ','))
         return false;
 
     tmp = xn;
-    while (*tmp)
-    {
+    while (*tmp){
         if ((*tmp == ','))
-        {
-            zap_p++;
-        }
+            zap_p++; 
         if ((*(tmp + 1) == '-') || (*tmp == '\0'))
-        {
             return false;
-        }
         tmp++;
     }
     if (zap_p > 1) return false;
     return true;
 }
 
-double double_checker()
-{
+double double_checker(){
     char n_data[64];
     while (true) {
         gets_s(n_data);
         bool check = double_control(n_data);
         if (check == true) break;
-        else
-        {
+        else{
             cout << "  Invalid sitax! Try again: ";
         }
     }
@@ -113,15 +96,13 @@ double double_checker()
 }
 
 
-double zero_checker()
-{
+double zero_checker(){
     char n_data[64];
     while (true) {
         gets_s(n_data);
         bool check = double_control(n_data);
         if (check == true and (double)atof(n_data) != 0) break;
-        else
-        {
+        else{
             cout << "  Invalid sitax! Division by zero is not possible. Try again: ";
         }
     }
@@ -134,8 +115,7 @@ bool int_control(char* xn)
     int zap_p = 0;
     const char mask[] = "-1234567890";
     int checker = 0;
-    while (*tmp)
-    {
+    while (*tmp){
         if (strchr(mask, *tmp)) checker++;
         tmp++;
     }
@@ -144,22 +124,18 @@ bool int_control(char* xn)
     if (checker == 0)
         return false;
 
-    if (*xn == '-' && *(xn + 1) == '\0')
-    {
+    if (*xn == '-' && *(xn + 1) == '\0'){
         return false;
     }
     if ((*xn == ','))
         return false;
 
     tmp = xn;
-    while (*tmp)
-    {
-        if ((*tmp == ','))
-        {
+    while (*tmp){
+        if ((*tmp == ',')){
             zap_p++;
         }
-        if ((*(tmp + 1) == '-') || (*tmp == '\0'))
-        {
+        if ((*(tmp + 1) == '-') || (*tmp == '\0')){
             return false;
         }
         tmp++;
@@ -168,15 +144,13 @@ bool int_control(char* xn)
     return true;
 }
 
-int int_checker()
-{
+int int_checker(){
     char n_data[64];
     while (true) {
         gets_s(n_data);
         bool check = int_control(n_data);
         if (check == true) break;
-        else
-        {
+        else{
             printf("  Invalid sitax! Try again: ");
         }
     }
@@ -186,9 +160,7 @@ int int_checker()
 Matrix operator / (double h, Matrix matrix);
 std::ostream& operator << (std::ostream& s, const Matrix& matrix);
 
-
-int main()
-{
+int main(){
     Matrix A(3, 3), B(3, 3), b(3, 1), D(3, 3);
     //Matrix A
     A(0, 0) = 3;
@@ -218,16 +190,13 @@ int main()
     {
         system("cls");
         int m1 = menu1();
-        switch (m1)
-        {
+        switch (m1){
         case 27: return 0;
-        case '1':
-        {
+        case '1':{
             system("cls");
             std::cout << "\tInvestigated matrices:\n\n";
             std::cout << "A:\n" << A << endl;
             std::cout << "B:\n" << B;
-
             std::cout << "\n\nDo you want to change the matrices?" << endl;
             int m3 = menu3();
             switch (m3) {
@@ -250,11 +219,9 @@ int main()
                 break;
             }
             }
-
             break;
         }
-        case '2':
-        {
+        case '2':{
             system("cls");
             std::cout << "\tMatrix Addition.\n\n";
             bool check = 0;
@@ -265,17 +232,14 @@ int main()
             catch (const char* message) {
                 std::cout << message;
             }
-
             if (check) {
                 std::cout << "A + B:\n\n" << endl;
                 std::cout << A << "\n +\n\n" << B << "\n = \n\n";
                 std::cout << A + B;
             }
-
             break;
         }
-        case '3':
-        {
+        case '3':{
             system("cls");
             std::cout << "\tMatrix difference.\n\n";
             bool check = 0;
@@ -286,18 +250,15 @@ int main()
             catch (const char* message) {
                 std::cout << message;
             }
-
             if (check) {
                 D = A - B;
                 std::cout << "A - B:\n\n" << endl;
                 std::cout << A << "\n -\n\n" << B << "\n = \n\n";
                 std::cout << D;
             }
-
             break;
         }
-        case '4':
-        {
+        case '4':{
             system("cls");
             std::cout << "\tmultiplication matrix.\n\n";
             bool check = 0;
@@ -314,11 +275,9 @@ int main()
                 std::cout << A << "\n *\n\n" << B << "\n = \n\n";
                 std::cout << D;
             }
-
             break;
         }
-        case '5':
-        {
+        case '5':{
             system("cls");
             std::cout << "\tMultiplying a matrix by a scalar.\n\n";
             double a;
@@ -326,12 +285,11 @@ int main()
             std::cin >> a;
             std::cout << "A * a:\n\n" << endl;
             std::cout << A << "\n *\n\n " << a << "\n\n = \n\n";
-            D = A * a;
+            D = a * A;
             std::cout << D;
             break;
         }
-        case '6':
-        {
+        case '6':{
             system("cls");
             std::cout << "\tDividing a matrix by a scalar.\n\n";
             double a;
@@ -341,15 +299,13 @@ int main()
             std::cout << A << "\n /\n\n " << a << "\n\n = \n\n";
             if (a == 0)
                 std::cout << "invalid syntax, division by zero is not possible" << endl;
-            else
-            {
+            else{
                 D = A / a;
                 std::cout << D;
             }
             break;
         }
-        case '7':
-        {
+        case '7':{
             system("cls");
             std::cout << "\tCalculating the trace of the matrix.\n\n";
             std::cout << "Tr(A) = " << A.tr();
@@ -360,12 +316,10 @@ int main()
             system("cls");
             std::cout << "Matrix Comparison.\n Enter epsilon: " << endl;
             std::cin >> A.epsilon;
-            if (A == B)
-            {
+            if (A == B){
                 std::cout << "A == B\n";
             }
-            else
-            {
+            else{
                 std::cout << "A!=B\n";
             }
             break;
@@ -412,8 +366,7 @@ int main()
             std::cout << A.Solution_of_the_equation(B);
         }
         }
-        while (true)
-        {
+        while (true){
             int m2 = menu2();
             if (m2 == 13) break;
         }

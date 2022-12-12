@@ -3,8 +3,7 @@
 
 using namespace std;
 
-class Matrix
-{
+class Matrix {
 private:
 	int rows, columns;
 	double** matrix;
@@ -23,6 +22,7 @@ public:
 	Matrix operator / (const double h);
 	bool operator == (const Matrix& rhs);
 	friend Matrix operator / (double h, Matrix matrix);
+	friend Matrix operator * (double h, Matrix matrix);
 	friend std::ostream& operator<< (std::ostream& out, const Matrix& matrix);
 	int GetRows() const;
 	int GetCols() const;
