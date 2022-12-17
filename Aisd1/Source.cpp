@@ -29,7 +29,6 @@ Matrix::Matrix(const Matrix& a)
 }
 
 Matrix& Matrix::operator = (const Matrix& a) {
-    this->~Matrix();
     this->rows = a.rows;
     this->columns = a.columns;
     this->matrix = new double* [rows];
@@ -148,6 +147,7 @@ void Matrix::EnterMatrix() {
         }
    * this = newMatrix;
 }
+
 Matrix Matrix::operator * (const double h) {
     Matrix result(rows, columns);
     for (int i = 0; i < rows; i++)
