@@ -29,6 +29,7 @@ Matrix::Matrix(const Matrix& a)
 }
 
 Matrix& Matrix::operator = (const Matrix& a) {
+    this->~Matrix();
     this->rows = a.rows;
     this->columns = a.columns;
     this->matrix = new double* [rows];
@@ -132,7 +133,6 @@ Matrix Matrix::operator / (const double h) {
     return result;
 }
 void Matrix::EnterMatrix() {
-    this->~Matrix();
     std::cout << "Enter the dimension of the matrix:" << endl;
     std::cout << "Number of rows: ";
     int newRows = int_checker();
