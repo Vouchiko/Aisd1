@@ -13,6 +13,40 @@ Matrix::Matrix() {
     columns = 0;
     matrix = NULL;
 }
+
+Matrix::Matrix(const Matrix& a)
+{
+    this->rows = a.rows;
+    this->columns = a.columns;
+    this->matrix = new double* [rows];
+    for (int i = 0; i < rows; i++)
+        matrix[i] = new double[columns];
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++)
+            matrix[i][j] = a.matrix[i][j];
+    }
+}
+
+Matrix& Matrix::operator = (const Matrix& a) {
+    this->~Matrix();
+    this->rows = a.rows;
+    this->columns = a.columns;
+    this->matrix = new double* [rows];
+    for (int i = 0; i < rows; i++)
+        matrix[i] = new double[columns];
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < columns; j++)
+            matrix[i][j] = a.matrix[i][j];
+    return *this;
+}
+
+Matrix::~Matrix() 
+{
+    for (int i = 0; i < rows; i++)
+        delete[] matrix[i];
+    delete[] matrix;
+}
 Matrix::Matrix(int rows, int columns) {
     if (rows > 0)
         this->rows = rows;
@@ -99,10 +133,7 @@ Matrix Matrix::operator / (const double h) {
     return result;
 }
 void Matrix::EnterMatrix() {
-    for (int i = 0; i < rows; i++)
-        delete[] matrix[i];
-    delete[] matrix;
-
+    this->~Matrix();
     std::cout << "Enter the dimension of the matrix:" << endl;
     std::cout << "Number of rows: ";
     int newRows = int_checker();
@@ -115,16 +146,7 @@ void Matrix::EnterMatrix() {
             std::cout << "Cell (" << i << ", " << j << ") = ";
             std::cin >> newMatrix.matrix[i][j];
         }
-
-    rows = newRows;
-    columns = newColumns;
-    matrix = new double* [rows];
-    for (int i = 0; i < rows; i++)
-        matrix[i] = new double[columns];
-
-    for (int i = 0; i < rows; i++)
-        for (int j = 0; j < columns; j++)
-            matrix[i][j] = newMatrix.matrix[i][j];
+   * this = newMatrix;
 }
 Matrix Matrix::operator * (const double h) {
     Matrix result(rows, columns);
@@ -164,7 +186,7 @@ bool Matrix::operator == (const Matrix& rhs) {
     }
     return result;
 }
-ostream& operator<< (ostream& s, const Matrix& matrix) {
+ostream& operator << (ostream& s, const Matrix& matrix) {
 
     for (int i = 0; i < matrix.rows; i++) {
         for (int j = 0; j < matrix.columns; j++)
@@ -181,7 +203,7 @@ Matrix Matrix::Solution_of_the_equation(const Matrix& Mat) {
 
     double invdet = 1 / det;
 
-    Matrix matrix2(3, 3), matrixResult;
+    Matrix matrix2(3, 3);
     matrix2(0, 0) = (matrix[1][1] * matrix[2][2] - matrix[2][1] * matrix[1][2]) * invdet;
     matrix2(0, 1) = (matrix[0][2] * matrix[2][1] - matrix[0][1] * matrix[2][2]) * invdet;
     matrix2(0, 2) = (matrix[0][1] * matrix[1][2] - matrix[0][2] * matrix[1][1]) * invdet;
@@ -192,6 +214,6 @@ Matrix Matrix::Solution_of_the_equation(const Matrix& Mat) {
     matrix2(2, 1) = (matrix[2][0] * matrix[0][1] - matrix[0][0] * matrix[2][1]) * invdet;
     matrix2(2, 2) = (matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]) * invdet;
 
-    matrixResult = matrix2 * Mat;
+    Matrix matrixResult = matrix2 * Mat;
     return matrixResult;
 }
